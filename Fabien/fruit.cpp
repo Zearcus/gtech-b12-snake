@@ -1,19 +1,10 @@
+#include <iostream>
+#include <time.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
 #include "fruit.hpp"
+#include "SpriteManager.hpp"
 
-#define pomme 1
-#define poireau 2
-#define aubergine 3
-#define cookie 4
+using namespace std;
 
-srand(time(NULL));
-n = rand() %100;
-
-fruits(){
-
-
-}
-
-~fruits(){
-
-
-}
