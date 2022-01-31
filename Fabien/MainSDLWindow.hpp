@@ -19,9 +19,7 @@ class MainSDLWindow {
     private:
         
         SDL_Window *window;
-        SDL_Renderer *renderer;   
         bool isRunning;
-        SDL_Texture *snakeSprite;
         SDL_Rect srcR, dstR;
 
         int dir;
@@ -30,7 +28,8 @@ class MainSDLWindow {
         const char *lastKeyPressed = "";
         Uint32 frame_time_start = SDL_GetTicks();
         Uint32 frame_ime_interval = SDL_GetTicks() - frame_time_start;
-
-        
+    protected :
+        SDL_Renderer *renderer; 
+        SDL_Texture *snakeSprite;
 };
 #endif

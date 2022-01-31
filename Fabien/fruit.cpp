@@ -1,15 +1,13 @@
-#include <iostream>
-#include <time.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 
+#include "MainSDLWindow.hpp"
 #include "fruit.hpp"
 #include "SpriteManager.hpp"
 
 using namespace std;
 
-class apple : public Fruits{
+class apple : public Fruits, public MainSDLWindow{
     // effet et sprite de la pomme
+    appleSprite = SpriteManager::LoadSprite("", renderer);
 };
 
 class leek : public Fruits{

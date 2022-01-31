@@ -1,16 +1,24 @@
 #ifndef Fruits_HPP
 #define Fruits_HPP
 
+#include <iostream>
+#include <time.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
 class Fruits
 {
-   public :
-        fruits();
+     public :
+        Fruits();
         void effectFruit();
 
-   private :
-        int apple = 1, poireau = 2, aubergine = 3, cookie = 4;  
-        // int quantityMaxfruits;
-        // int rarity;
+     protected :
+        int apple = 1, poireau = 2, aubergine = 3, cookie = 4; 
+          SDL_Texture *appleSprite;
+          SDL_RenderCopy(renderer, appleSprite, NULL, &dstA);
+          SDL_Rect srcA, dstA;
+          // int quantityMaxfruits;
+          // int rarity;
 
 };
 #endif
