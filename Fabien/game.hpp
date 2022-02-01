@@ -16,7 +16,6 @@ class Game {
     private:
         bool isRunning;
         SDL_Renderer *renderer; 
-        SDL_Texture *appleSprite;
         SDL_Rect srcR, dstR;
         const char *lastKeyPressed = "";
         const Uint8 *keystates = SDL_GetKeyboardState(NULL);

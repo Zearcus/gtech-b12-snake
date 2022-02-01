@@ -2,10 +2,13 @@
 #define Fruits_HPP
 
 #include <iostream>
-#include <time.h>
+#include <random>
+#include <stdio.h>
+#include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+using namespace std;
 class Fruits
 {
      public :
@@ -14,9 +17,8 @@ class Fruits
 
      protected :
         int apple = 1, poireau = 2, aubergine = 3, cookie = 4; 
-          SDL_Texture *appleSprite;
-          SDL_RenderCopy(renderer, appleSprite, NULL, &dstA);
-          SDL_Rect srcA, dstA;
+         //  SDL_Texture *appleSprite;
+         //  SDL_Rect srcA, dstA;
           // int quantityMaxfruits;
           // int rarity;
 

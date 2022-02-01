@@ -21,6 +21,7 @@ class MainSDLWindow {
         SDL_Window *window;
         bool isRunning;
         SDL_Rect srcR, dstR;
+        SDL_Rect srcA, dstA; // à enlever si prob
 
         int dir;
         
@@ -31,5 +32,6 @@ class MainSDLWindow {
     protected :
         SDL_Renderer *renderer; 
         SDL_Texture *snakeSprite;
+        SDL_Texture *appleSprite; // à enlever si prob
 };
 #endif
