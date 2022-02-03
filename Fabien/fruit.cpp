@@ -9,22 +9,20 @@ void MainSDLWindow::render(){
     SDL_RenderCopy(renderer, appleSprite, NULL, &dstA);
 }
 
-class apple : public Fruits, public MainSDLWindow{
-    // effet et sprite de la pomme
-    // int random(int min, int max){
+int randomFruitSpawn(int min, int max)
+{
+    return (rand() % (max - min)) + min;
+}
 
-    // }
-};
+int Apple::apple(int min, int max){
+//     return (rand()% (max - min)) + min;
 
-class leek : public Fruits{
-    // effet et sprite du poireau
-};
-
-class aubergine : public Fruits{
-    // effet et sprite de l'aubergine
-};
-
-class cookie : public Fruits{
-    // effet et sprite du cookie
-
+//    if(min = 1 && max = 10){
+//      return spawn = true;
+//    }
+//    else
+//    {
+//      spawn = false;
+//    }
+    
 };

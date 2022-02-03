@@ -2,7 +2,7 @@
 #define Fruits_HPP
 
 #include <iostream>
-#include <random>
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
@@ -16,11 +16,31 @@ class Fruits
         void effectFruit();
 
      protected :
-        int apple = 1, poireau = 2, aubergine = 3, cookie = 4; 
+        int apple = 1, poireau = 2, aubergine = 3, cookie = 4;
+        bool spawn; 
          //  SDL_Texture *appleSprite;
          //  SDL_Rect srcA, dstA;
           // int quantityMaxfruits;
           // int rarity;
+
+};
+
+class Apple : public Fruits, public MainSDLWindow{
+    // effet et sprite de la pomme
+   public:
+      int apple(int min, int max);
+};
+
+class Leek : public Fruits{
+    // effet et sprite du poireau
+};
+
+class Aubergine : public Fruits{
+    // effet et sprite de l'aubergine
+};
+
+class Cookie : public Fruits{
+    // effet et sprite du cookie
 
 };
 #endif

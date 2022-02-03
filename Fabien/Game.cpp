@@ -124,7 +124,7 @@ int MainSDLWindow::Init(const char *nameWindow, int posX, int posY, int renderer
     // SDL_FreeSurface(tempSurface);
 
     snakeSprite = SpriteManager::LoadSprite("SpriteSnake/snakeHeadDown.png", renderer);
-    appleSprite = SpriteManager::LoadSprite("SpriteSnake/snakeHeadDown.png", renderer);
+    appleSprite = SpriteManager::LoadSprite("SpriteSnake/apple.png", renderer);
     // à enlever si prob
     return EXIT_SUCCESS;
 
