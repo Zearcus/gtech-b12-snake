@@ -217,6 +217,9 @@ void MainSDLWindow::update()
     dstR.h = 48;
     dstR.w = 48;
 
+    dstA.h = 48;
+    dstA.w = 48;
+
     // cout << counter << endl;
 }
 
@@ -226,6 +229,7 @@ void MainSDLWindow::render()
     // Where we add stuff to render
     SDL_RenderCopy(renderer, snakeSprite, NULL, &dstR);
     // SDL_RenderDrawRect(renderer, &rect);
+    SDL_RenderCopy(renderer, appleSprite, NULL, &dstA);
 
     SDL_RenderPresent(renderer);
 }

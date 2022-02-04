@@ -2,7 +2,7 @@
 #define Fruits_HPP
 
 #include <iostream>
-#include <time.h>
+#include <ctime>
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
@@ -12,8 +12,6 @@ using namespace std;
 class Fruits
 {
      public :
-        Fruits();
-        void effectFruit();
 
      protected :
         int apple = 1, poireau = 2, aubergine = 3, cookie = 4;
@@ -28,21 +26,23 @@ class Fruits
 class Apple : public Fruits, public MainSDLWindow{
     // effet et sprite de la pomme
    public:
-      int apple(int min, int max);
+       int apple(int min, int max);
+        ~Apple();
+       //int position;
 };
 
-class Leek : public Fruits{
-    // effet et sprite du poireau
-};
+// class Leek : public Fruits{
+//     // effet et sprite du poireau
+// };
 
-class Aubergine : public Fruits{
-    // effet et sprite de l'aubergine
-};
+// class Aubergine : public Fruits{
+//     // effet et sprite de l'aubergine
+// };
 
-class Cookie : public Fruits{
-    // effet et sprite du cookie
+// class Cookie : public Fruits{
+//     // effet et sprite du cookie
 
-};
+// };
 #endif
 
 //Pomme :  rareté : commun / donne un segment supplémentaire au snake

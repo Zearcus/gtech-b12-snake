@@ -5,24 +5,29 @@
 
 
 
-void MainSDLWindow::render(){
-    SDL_RenderCopy(renderer, appleSprite, NULL, &dstA);
-}
+// void MainSDLWindow::render(){
+//     SDL_RenderCopy(renderer, appleSprite, NULL, &dstA);
+// }
 
-int randomFruitSpawn(int min, int max)
-{
-    return (rand() % (max - min)) + min;
-}
+// void MainSDLWindow::update(){
+//     dstA.h = 48;
+//     dstA.w = 48;
+// }
+
+// int randomFruitSpawn(int min, int max)
+// {
+//     return (rand() % (max - min)) + min;
+// }
 
 int Apple::apple(int min, int max){
-//     return (rand()% (max - min)) + min;
 
-//    if(min = 1 && max = 10){
-//      return spawn = true;
-//    }
-//    else
-//    {
-//      spawn = false;
-//    }
-    
+    //    if(min = 1 && max = 10){
+    //      return spawn = true;
+    //    }
+    //    else
+    //    {
+    //      spawn = false;
+    //    }
+
+
 };
