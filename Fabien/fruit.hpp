@@ -11,9 +11,9 @@
 using namespace std;
 class Fruits
 {
-     public :
-
-     protected :
+    public :
+       void update();
+    protected :
         int apple = 1, poireau = 2, aubergine = 3, cookie = 4;
         bool spawn; 
          //  SDL_Texture *appleSprite;

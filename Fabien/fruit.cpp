@@ -19,6 +19,11 @@
 //     return (rand() % (max - min)) + min;
 // }
 
+void Fruits::update(){
+   
+
+};
+
 int Apple::apple(int min, int max){
 
     //    if(min = 1 && max = 10){
