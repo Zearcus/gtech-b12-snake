@@ -3,8 +3,7 @@
 
 #include <iostream>
 #include <ctime>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -14,6 +13,7 @@ class Fruits
     public :
        void update();
     protected :
+        int fruitNumber;
         int apple = 1, poireau = 2, aubergine = 3, cookie = 4;
         bool spawn; 
          //  SDL_Texture *appleSprite;
