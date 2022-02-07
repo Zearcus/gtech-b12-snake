@@ -1,7 +1,11 @@
 #ifndef game_HPP
 #define game_HPP
 
-class Game {
+#include "MainSDLWindow.hpp"
+#include "snake.hpp"
+
+class Game : public MainSDLWindow
+{ 
     public:
         Game();
         ~Game();
@@ -11,14 +15,11 @@ class Game {
         void render();
         // void clean();
 
-        bool running() {return isRunning; };
+        // bool running() {return isRunning; };
+        int dir;
 
     private:
-        bool isRunning;
-        SDL_Renderer *renderer; 
-        SDL_Texture *appleSprite;
-        SDL_Rect srcR, dstR;
-        const char *lastKeyPressed = "";
+
         const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 };
 #endif

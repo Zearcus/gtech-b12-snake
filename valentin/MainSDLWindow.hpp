@@ -2,9 +2,12 @@
 #define MainSDLWindow_HPP
 #include <SDL2/SDL.h>
 
-#define MOVE_SPEED 2
-#define WINDOW_WIDTH 1600
-#define WINDOW_HEIGHT 900
+#define MOVE_SPEED 4
+#define WINDOW_WIDTH  NUMBER_BLOCKS_WIDTH * BLOC_SIZE 
+#define WINDOW_HEIGHT  NUMBER_BLOCKS_HEIGHT * BLOC_SIZE 
+#define BLOC_SIZE 25
+#define NUMBER_BLOCKS_WIDTH 50
+#define NUMBER_BLOCKS_HEIGHT 40
 
 
 class MainSDLWindow {
@@ -21,20 +24,26 @@ class MainSDLWindow {
 
         bool running() {return isRunning; };
         // return this->renderer;
-    private:
-        
-        SDL_Window *window;
-        SDL_Renderer *renderer;   
-        bool isRunning;
-        SDL_Texture *snakeSprite;
-        SDL_Rect srcR, dstR;
 
+    protected:
+        SDL_Texture *snakeSprite;
+        SDL_Rect srcS, dstS;
+        SDL_Rect box;
+        SDL_Renderer *renderer;   
+        SDL_Window *window;
+        bool isRunning;
         int dir;
         
 
-        const char *lastKeyPressed = "";
+    private:
+        int map[NUMBER_BLOCKS_WIDTH][NUMBER_BLOCKS_HEIGHT] = {0};
+
+
+
+        
+
         Uint32 frame_time_start = SDL_GetTicks();
-        Uint32 frame_ime_interval = SDL_GetTicks() - frame_time_start;
+        Uint32 frame_time_interval = SDL_GetTicks() - frame_time_start;
 
         
 };

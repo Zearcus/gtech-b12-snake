@@ -1,14 +1,21 @@
 #include "MainSDLWindow.hpp"
 #include "game.hpp"
+#include "snake.hpp"
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+
 
 // #ifndef GAME_CPP
 // #define GAME_CPP
 
+// Snake *snake = nullptr;
 Game *game = nullptr;
 MainSDLWindow *window = nullptr;
     
 int main(int argc, char* argv[])
 {
+    // snake = new Snake();
     game = new Game();
     window = new MainSDLWindow();
 
@@ -16,9 +23,12 @@ int main(int argc, char* argv[])
 
     while (window->running())   
     {
+
         window->handleEvents();
         window->update();
         window->render();
+        
+
         SDL_Delay(20);
 
     }

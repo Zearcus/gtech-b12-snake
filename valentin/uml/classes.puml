@@ -1,0 +1,101 @@
+@startuml
+
+
+
+
+
+/' Objects '/
+
+class Game {
+	+Game()
+	+~Game()
+	-keystates : const Uint8*
+	+dir : int
+	+handleEvents() : void
+	+render() : void
+	+update() : void
+}
+
+
+class MainSDLWindow {
+	+MainSDLWindow()
+	+~MainSDLWindow()
+	#dstS : SDL_Rect
+	#srcS : SDL_Rect
+	#renderer : SDL_Renderer*
+	#snakeSprite : SDL_Texture*
+	#window : SDL_Window*
+	-frame_time_interval : Uint32
+	-frame_time_start : Uint32
+	#isRunning : bool
+	+running() : bool
+	+Init(const char* nameWindow, int posX, int posY, int rendererW, int rendererH, bool fullscreen) : int
+	#dir : int
+	+clean() : void
+	+handleEvents() : void
+	+render() : void
+	+update() : void
+}
+
+
+class Segment {
+	+Segment()
+	+~Segment()
+	+head : Segment*
+	+next : Segment*
+	+tail : Segment*
+	+HasNext() : int
+	+addSegment(int xx, int yy) : int
+	-x : int
+	-y : int
+	+SetPosition() : void
+}
+
+
+class Snake {
+	+Snake()
+	+~Snake()
+	-head : Snake*
+	-tail : Snake*
+	+collision() : int
+	+length() : int
+	+Eat() : void
+}
+
+
+class SpriteLoader {
+	+SpriteLoader()
+	+~SpriteLoader()
+	+{static} LoadSprite(const char* fileName, SDL_Renderer* ren) : SDL_Texture*
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+.MainSDLWindow <|-- .Game
+
+
+
+
+
+/' Aggregation relationships '/
+
+.Segment "3" o-- .Segment
+
+
+.Snake "2" o-- .Snake
+
+
+
+
+
+
+/' Nested objects '/
+
+
+
+@enduml
+
