@@ -11,6 +11,9 @@
 
 using namespace std;
 
+
+
+
 // // SNAKE = tête + corps1 + corps2 + corps3 + fin (variables héritant de la tête globale. dernière partie bouge sur partie suivante etc, tête elle avance d'une unité)
 
 // class Snake
@@ -105,7 +108,7 @@ int MainSDLWindow::Init(const char *nameWindow, int posX, int posY, int renderer
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_SetRenderDrawColor(renderer, 50, 168, 60, SDL_ALPHA_OPAQUE);
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
@@ -192,19 +195,19 @@ void MainSDLWindow::handleEvents()
     }
     if (dir == 1)
     {
-        dstR.y = dstR.y -2;
+        dstR.y = dstR.y - MOVE_SPEED;
     }
     if (dir == 2)
     {
-        dstR.y = dstR.y + 2;
+        dstR.y = dstR.y +  MOVE_SPEED;
     }
     if (dir == 3)
     {
-        dstR.x = dstR.x + 2;
+        dstR.x = dstR.x +  MOVE_SPEED;
     }
     if (dir == 4)
     {
-        dstR.x = dstR.x - 2;
+        dstR.x = dstR.x -  MOVE_SPEED;
     }
 }
 

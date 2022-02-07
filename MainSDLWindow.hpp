@@ -2,6 +2,11 @@
 #define MainSDLWindow_HPP
 #include <SDL2/SDL.h>
 
+#define MOVE_SPEED 2
+#define WINDOW_WIDTH 1600
+#define WINDOW_HEIGHT 900
+
+
 class MainSDLWindow {
     public:
         MainSDLWindow();
