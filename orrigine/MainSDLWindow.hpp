@@ -2,11 +2,11 @@
 #define MainSDLWindow_HPP
 #include <SDL2/SDL.h>
 
-#define MOVE_SPEED 4
-#define WINDOW_WIDTH  NUMBER_BLOCKS_WIDTH * BLOC_SIZE 
-#define WINDOW_HEIGHT  NUMBER_BLOCKS_HEIGHT * BLOC_SIZE 
-#define BLOC_SIZE 25
-#define NUMBER_BLOCKS_WIDTH 50
+// #define MOVE_SPEED 4
+#define WINDOW_WIDTH  1000
+#define WINDOW_HEIGHT  1000
+#define BLOC_SIZE 30
+#define NUMBER_BLOCKS_WIDTH 40
 #define NUMBER_BLOCKS_HEIGHT 40
 
 
@@ -38,9 +38,6 @@ class MainSDLWindow {
     private:
         int map[NUMBER_BLOCKS_WIDTH][NUMBER_BLOCKS_HEIGHT] = {0};
 
-
-
-        
 
         Uint32 frame_time_start = SDL_GetTicks();
         Uint32 frame_time_interval = SDL_GetTicks() - frame_time_start;

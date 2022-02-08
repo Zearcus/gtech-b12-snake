@@ -12,7 +12,9 @@ using namespace std;
 // Snake *snake = nullptr;
 Game *game = nullptr;
 MainSDLWindow *window = nullptr;
-    
+
+Uint32 frame_time_start, frame_time, frame_delay = 80;
+
 int main(int argc, char* argv[])
 {
     // snake = new Snake();
@@ -23,13 +25,22 @@ int main(int argc, char* argv[])
 
     while (window->running())   
     {
+        frame_time_start = SDL_GetTicks();
 
         window->handleEvents();
         window->update();
         window->render();
         
 
-        SDL_Delay(20);
+        frame_time = SDL_GetTicks() - frame_time_start;
+        if(frame_time < frame_delay)
+        {
+            SDL_Delay((frame_delay - frame_time));
+            
+        }
+
+        // SDL_Delay(10);
+
 
     }
     window->clean();

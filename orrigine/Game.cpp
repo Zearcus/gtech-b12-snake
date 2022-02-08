@@ -79,6 +79,13 @@ void MainSDLWindow::handleEvents()
     while (SDL_PollEvent(&event) != 0)
     {
 
+        // if(collisionWithBorder == true)
+        // {
+        //     isRunning = false;
+        // }
+            
+
+
         switch (event.type)
         {
         case SDL_QUIT:
@@ -93,9 +100,7 @@ void MainSDLWindow::handleEvents()
                 if (dir != 2)
                 {
                     dir = 1;
-                    cout << "Z key pressed" << endl;
                 }
-                // snakeSprite = SpriteLoader::LoadSprite("SpriteSnake/snakeHeadUp.png", renderer);
                 break;
 
             case SDLK_s:
@@ -103,7 +108,6 @@ void MainSDLWindow::handleEvents()
                 {
                     dir = 2;
                 }
-                // snakeSprite = SpriteLoader::LoadSprite("SpriteSnake/snakeHeadDown.png", renderer);
 
                 break;
 
@@ -112,20 +116,17 @@ void MainSDLWindow::handleEvents()
                 {
                     dir = 3;
                 }
-
-                // snakeSprite = SpriteLoader::LoadSprite("SpriteSnake/snakeHeadRight.png", renderer);
                 break;
             case SDLK_q:
                 if (dir != 3)
                 {
                     dir = 4;
                 }
-                // snakeSprite = SpriteLoader::LoadSprite("SpriteSnake/snakeHeadLeft.png", renderer);
             // case SDLK_x:
+
                 
             }
             
-
         default:
             break;
         }
@@ -134,10 +135,6 @@ void MainSDLWindow::handleEvents()
         // {
         //     Snake::Eat();
         // }
-        if(dstS.y == box.y && dstS.x == box.x)
-        {
-            cout << "Eaten" << endl;
-        }
     }
 
 
@@ -145,35 +142,45 @@ void MainSDLWindow::handleEvents()
 
     if (dir == 1)
     {
-        dstS.y = dstS.y - MOVE_SPEED;
-        // dstS.y = dstS.y * BLOC_SIZE;
+        dstS.y -=  BLOC_SIZE;
+        // dstS.y = dstS.y - MOVE_SPEED;
     }
     if (dir == 2)
     {
-        dstS.y = dstS.y + MOVE_SPEED;
-        // dstS.y = dstS.y * BLOC_SIZE;
+        dstS.y +=  BLOC_SIZE;
+        // dstS.y = dstS.y + MOVE_SPEED;
     }
     if (dir == 3)
     {
-        dstS.x = dstS.x + MOVE_SPEED;
-        // dstS.x = dstS.x * BLOC_SIZE;
+        dstS.x +=  BLOC_SIZE;
+        // dstS.x = dstS.x + MOVE_SPEED;
     }
     if (dir == 4)
     {
-        dstS.x = dstS.x - MOVE_SPEED;
-        // dstS.x = dstS.x * BLOC_SIZE;
+        dstS.x -=  BLOC_SIZE;
+        // dstS.x = dstS.x - MOVE_SPEED;
+
     }
+        if(dstS.y == box.y && dstS.x == box.x)
+        {
+            Snake s;
+            cout << "Eaten" << endl;
+            s.Eat();
+        }
+        cout << "\nCoord pomme : " << box.y << "      " << box.x << endl;
+
+        cout << "Coord snake : " << dstS.x << "      " << dstS.y << endl;
 }
 
 
 
 void MainSDLWindow::update()
 {
-    dstS.h = 48;
-    dstS.w = 48; 
+    dstS.h = BLOC_SIZE;
+    dstS.w = BLOC_SIZE; 
 
-    box.w = 30; 
-    box.h = 30; 
+    box.w = BLOC_SIZE; 
+    box.h = BLOC_SIZE; 
     box.x = WINDOW_WIDTH/2;
     box.y = WINDOW_HEIGHT/2; 
     
@@ -186,15 +193,20 @@ void MainSDLWindow::update()
 
 void MainSDLWindow::render()
 {
-
+    // Color of background
     SDL_SetRenderDrawColor(renderer, 0 , 0 , 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
+
     // Where we add stuff to render
-    SDL_RenderCopy(renderer, snakeSprite, NULL, &dstS);
+    // SDL_RenderCopy(renderer, snakeSprite, NULL, &dstS);
+    SDL_RenderDrawRect(renderer, &dstS);
+    SDL_SetRenderDrawColor(renderer, 255 , 255 , 255, SDL_ALPHA_OPAQUE);
+    SDL_RenderFillRect(renderer, &dstS);
 
     SDL_RenderDrawRect(renderer, &box);
     SDL_SetRenderDrawColor(renderer, 255 , 160 , 0, SDL_ALPHA_OPAQUE);
     SDL_RenderFillRect(renderer, &box);
+
     SDL_RenderPresent(renderer);
 }
 

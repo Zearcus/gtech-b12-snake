@@ -8,15 +8,15 @@
 class Snake
 {
 public:
-    Segment *head;
-    Segment *tail;
+    Snake *head;
+    Snake *tail;
 
     Snake();
     ~Snake();
     
     void Eat();
     Snake* GetHead();
-    int collision();
+    int collisionWithBorder();
     int length();
 
 private:
@@ -32,8 +32,10 @@ class Segment
 
         Segment(int xx, int yy);
         ~Segment();
+
+        int addSegment(int xx, int yy);
         // int addSegment(int xx, int yy);
-        int HasNext();
+        // int HasNext();
         // Segment* GetNext();
         // coordinates GetCoords();
 
@@ -41,5 +43,5 @@ class Segment
     private :
         int x, y;
         // coordinates coords;
-};
+};   
 #endif

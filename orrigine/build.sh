@@ -1,1 +1,1 @@
-g++ main.cpp Game.cpp snake.cpp SpriteLoader.cpp -lSDL2 -lSDL2_image -o main && ./main 
+g++ main.cpp snake.cpp Game.cpp SpriteLoader.cpp -lSDL2 -lSDL2_image -o main && ./main 
