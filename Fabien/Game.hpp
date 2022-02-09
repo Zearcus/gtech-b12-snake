@@ -1,25 +1,29 @@
-#ifndef game_HPP
-#define game_HPP
 
-class Game {
-    public:
-        Game();
-        ~Game();
+#pragma once
+#include "Window.hpp"
+#include "snake.hpp"
 
-        void GameLoop
+class Game
+{
+public:
+    Game();
+    ~Game();
 
-        void handleEvents();
-        void update();
-        void render();
-        // void clean();
+    void gameLoop();
+    void gameInit();
+    
+    bool running() {return isRunning; };
 
-        bool running() {return isRunning; };
+private:
+    int count;
+    bool isRunning;
+    int dir;
+    SDL_Event event;
+    Window* mainWindow;
+    SDL_Renderer* renderer;
+    PlayGround *playground;
+    Snake* s;
+    // Fruit* fruit;
 
-    private:
-        bool isRunning;
-        SDL_Renderer *renderer; 
-        SDL_Rect srcR, dstR;
-        const char *lastKeyPressed = "";
-        const Uint8 *keystates = SDL_GetKeyboardState(NULL);
+
 };
-#endif

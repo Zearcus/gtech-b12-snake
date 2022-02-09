@@ -1,29 +1,32 @@
+#include <iostream>
+#include <stdio.h>
+
 #include "Window.hpp"
-#include "game.hpp"
+#include "Game.hpp"
+#include "snake.hpp"
 
-// #ifndef GAME_CPP
-// #define GAME_CPP
+using namespace std;
 
-Game *game = nullptr;
-Window *window = nullptr;
+
+
+// Snake *snake = new Snake();
+// Game *game = nullptr;
+// Window *window = nullptr;
+
+// Uint32 frame_time_start, frame_time, frame_delay = 80;
 
 int main(int argc, char *argv[])
 {
-    game = new Game();
-    window = new Window();
+    Game game;
+    
+    
+    game.gameInit();
 
-    window->Init("Snake!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
-
-    while (window->running())
-    {
-        window->handleEvents();
-        window->update();
-        window->render();
-        SDL_Delay(20);
-    }
-    window->clean();
-
+    game.gameLoop();
+    SDL_Delay(20);
+    
+        
+    
     return 0;
-}
 
-// #endif
+}

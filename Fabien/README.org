@@ -1,0 +1,43 @@
+# gtech-b12-snake
+* Snake
+** Outils à installer
+  #+BEGIN_SRC sh
+    sudo apt-get update
+    sudo apt-get install man make g++ libsdl2-dev libsdl2-image-dev install x11-utils
+  #+END_SRC$
+  
+ - Utilisation:
+
+ - Configuration permamente, *à faire une seule fois*:
+
+   #+BEGIN_SRC sh
+     echo "export DISPLAY=:0" >> ~/.bashrc
+     source ~/.bashrc
+   #+END_SRC
+   
+   Plus tard vous pourrez lancer votre jeu Snake de cette manière:
+
+   #+BEGIN_SRC sh
+     ./snake &
+   #+END_SRC
+** Lancement
+1. Compilation:
+  #+BEGIN_SRC sh
+    g++ main.cpp Game.cpp playground.cpp snake.cpp fruit.cpp Window.cpp -lSDL2 -lSDL2_image -o main
+  #+END_SRC$
+2. Execution:
+  #+BEGIN_SRC sh
+    ./main
+  #+END_SRC$
+** Comment jouer au jeu
+  1. Les règles:
+  Vous êtes un serpent, vous devez manger des /pommes/ ou des /fruits/ pour devenir de plus en plus grand afin de courvrir toute la fenêtre pour pouvoir *GAGNER !* mais *ATTENTION !!!* si vous vous mordez la queue ou si vous touchez les bords de la fenêtre vous avez *PERDU !*
+  2. Les contrôles:
+*** Les touches du directionnelles du snake sont :
+  - Z : pour monter
+  - Q : pour tourner à gauche
+  - S : pour descendre
+  - D : pour tourner à droite
+*** Les touches supplémentaires:
+  - Echap : pour quitter le jeu
+* Amusez-vous bien :) !

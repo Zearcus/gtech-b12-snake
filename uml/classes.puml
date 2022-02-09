@@ -1,0 +1,132 @@
+@startuml
+
+
+
+
+
+/' Objects '/
+
+class Game {
+	+Game()
+	+~Game()
+	-playground : PlayGround*
+	-event : SDL_Event
+	-renderer : SDL_Renderer*
+	-s : Snake*
+	-mainWindow : Window*
+	-isRunning : bool
+	+running() : bool
+	-count : int
+	-dir : int
+	+gameInit() : void
+	+gameLoop() : void
+}
+
+
+class PlayGround {
+	+PlayGround(SDL_Renderer*)
+	-renderer : SDL_Renderer*
+}
+
+
+class Segment {
+	+Segment(int xx, int yy, SDL_Renderer* NewRenderer)
+	+~Segment()
+	+dstS : SDL_Rect
+	+srcS : SDL_Rect
+	-renderer : SDL_Renderer*
+	-BodySprite : SDL_Texture*
+	-HeadSprite : SDL_Texture*
+	-L_BodySprite : SDL_Texture*
+	-TailSprite : SDL_Texture*
+	+next : Segment*
+	+x : int
+	+y : int
+	+ApplyAndGoNext(int angle) : void
+	+ApplyHeadSprite(int angle) : void
+	+SetPosition() : void
+	+addSegment(int xx, int yy) : void
+}
+
+
+class Snake {
+	+Snake()
+	+~Snake()
+	+renderer : SDL_Renderer*
+	+head : Segment*
+	-tail : Segment*
+	+collisionWithBorder() : bool
+	+collisionWithHimself() : bool
+	+dir : int
+	+dirX : int
+	+dirY : int
+	+length() : int
+	+x : int
+	+y : int
+	+Eat() : void
+	+MoveDown() : void
+	+MoveLeft() : void
+	+MoveRight() : void
+	+MoveUp() : void
+	+ShowSnake() : void
+	+changeDirection(int dir) : void
+}
+
+
+class SpriteLoader {
+	+SpriteLoader()
+	+~SpriteLoader()
+	+{static} LoadSprite(const char* fileName, SDL_Renderer* ren) : SDL_Texture*
+}
+
+
+class Window {
+	+Window()
+	+~Window()
+	+GetRenderer() : SDL_Renderer*
+	#renderer : SDL_Renderer*
+	#window : SDL_Window*
+	-frame_time_interval : Uint32
+	-frame_time_start : Uint32
+	+WindowInit(const char* nameWindow, int posX, int posY, int rendererW, int rendererH) : int
+	+ClearRenderer(SDL_Renderer* renderer) : void
+	+DrawRectOnRenderer(SDL_Rect rect, SDL_Renderer* renderer, int r, int g, int b, int a) : void
+	+ShowSpriteOnRenderer(SDL_Texture* sprite, SDL_Renderer* renderer, SDL_Rect position, int angle) : void
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+
+
+
+/' Aggregation relationships '/
+
+.Game o-- .PlayGround
+
+
+.Game o-- .Snake
+
+
+.Game o-- .Window
+
+
+.Segment o-- .Segment
+
+
+.Snake "2" o-- .Segment
+
+
+
+
+
+
+/' Nested objects '/
+
+
+
+@enduml
+

@@ -4,243 +4,161 @@
 #include <SDL2/SDL_image.h>
 
 #include "Window.hpp"
-#include "game.hpp"
-#include "SpriteManager.hpp"
-#include "fruit.hpp"
+#include "snake.hpp"
+#include "Game.hpp"
+#include "SpriteLoader.hpp"
 
 // #include "MoveSprite.hpp"
 
 using namespace std;
 
-// // SNAKE = tête + corps1 + corps2 + corps3 + fin (variables héritant de la tête globale. dernière partie bouge sur partie suivante etc, tête elle avance d'une unité)
+// Snake *snake = nullptr;
+// snake = new Snake();
 
-// class Snake
+// Window::Window()
 // {
-//     public:
-//         Snake()
-//       {
-//           this -> x = 0;
-//           this -> y = 0;
-//           this -> head = 0;
+//     this->window = NULL;
+//     this->renderer = NULL;
+// }
 
-//       }
-//       ~Snake()
-//       { // Destruct
-//           if (nextSnake != NULL)
-//           {
-//               delete nextSnake;
-//           }
-//       }
-//       int move(int newx, int newy)
-//       {
-//           if (nextSnake != NULL)
-//           {
-//               nextSnake.move(x, y);
-//           }
-//           this -> x = newx;
-//           this -> y = newy;
-//           return 0;
-//       }
-
-//       int turn(int degree)
-//       {
-//           this -> head = degree;
-//           return 0;
-//       }
-
-//       int createSnake()
-//         { // Crée le next serpent
-//             if (nextSnake != NULL)
-//             {
-//                 nextSnake.createSnake();
-//             }
-//             else
-//             {
-//                 Snake temporarySnake;
-//                 this -> nextSnake = temporarySnake;
-//             }
-
-//         }
-
-//     private:
-//         int x;
-//         int y;
-//         int head;
-//         Snake* nextSnake;
-
-// };
-
-Window::Window()
+Game::Game() 
 {
-    this->window = NULL;
-    this->renderer = NULL;
+    if(SDL_Init(SDL_INIT_VIDEO) < 0) { // SDL init error ?
+        printf("Error initialization SDL : %s\n",SDL_GetError()); // Print error
+        exit(1); // Quit to avoid more problems
+  }
 }
 
-Game::Game() {}
-
-Window::~Window()
+Game::~Game()
 {
+    delete this -> s;
     SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    delete this -> mainWindow;
     SDL_Quit();
 }
 
-int Window::Init(const char *nameWindow, int posX, int posY, int rendererW, int rendererH, bool fullscreen)
+
+void Game::gameLoop()
 {
-    window = SDL_CreateWindow(nameWindow, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, rendererW, rendererH, SDL_WINDOW_SHOWN);
-    if (window == NULL)
-    {
-        cout << "Error: SDL_CreateWindow() failed" << endl;
-        isRunning = false;
-        return EXIT_FAILURE; // Quit program
-    }
-    else
-    {
-        isRunning = true;
-    }
-
-    int flags = 0;
-    if (fullscreen)
-    {
-        flags = SDL_WINDOW_FULLSCREEN;
-    }
-
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
-        cout << "Error: Init() function failed" << endl;
-        isRunning = false;
-        return EXIT_FAILURE; // Quit program
-    }
-    else
-    {
-        isRunning = true;
-    }
-
-    // SDL_Surface* tempSurface = IMG_Load("SpriteSnake/apple.png");
-    // snakeSprite = SDL_CreateTextureFromSurface(renderer, tempSurface);
-    // SDL_FreeSurface(tempSurface);
-
-    snakeSprite = SpriteManager::LoadSprite("SpriteSnake/snakeHeadDown.png", renderer);
-    appleSprite = SpriteManager::LoadSprite("SpriteSnake/apple.png", renderer);
-    // à enlever si prob
-    return EXIT_SUCCESS;
-
-    // SDL_RenderClear(renderer);
-}
-
-void Window::handleEvents()
-{
+    Uint32 time = SDL_GetTicks();
+    Uint32 frame_time_start, frame_time, frame_delay = 80;
     SDL_Event event;
-    while (SDL_PollEvent(&event) != 0)
+    bool isRunning = true;
+
+    while(isRunning)
     {
-
-        switch (event.type)
+        // cout << "Game loop" << endl;
+        // cout << "I'm count : " << count++  << endl;
+        
+        while (SDL_PollEvent(&this->event))
         {
-        case SDL_QUIT:
-            isRunning = false; // Quit
-            break;
 
-        case SDL_KEYDOWN:
-            std::cout << "Entered" << std::endl;
-            switch (event.key.keysym.sym)
+            switch (event.type)
             {
-
-            case SDLK_z:
-                cout << "Up" << endl;
-                if (dir != 2)
-                {
-                    dir = 1;
-                }
-                // snakeSprite = SpriteManager::LoadSprite("SpriteSnake/snakeHeadUp.png", renderer);
+            case SDL_QUIT:
+                isRunning = false; // Quit
                 break;
 
-            case SDLK_s:
-                cout << "Down" << endl;
-                if (dir != 1)
+            case SDL_KEYDOWN:
+                switch (event.key.keysym.sym)
                 {
-                    dir = 2;
-                }
-                // snakeSprite = SpriteManager::LoadSprite("SpriteSnake/snakeHeadDown.png", renderer);
 
+                    case SDLK_z:
+                        if (dir != 2)
+                        {dir = 1;}
+                        // UP
+                        break;
+
+                    case SDLK_s:
+                        if (dir != 1)
+                        {dir = 2;}
+                        // DOWN
+                        break;
+
+                    case SDLK_d:
+                        if (dir != 4)
+                        {dir = 3;}
+                        // RIGHT
+                        break;
+                    case SDLK_q:
+                        if (dir != 3)
+                        {dir = 4;}
+                        // LEFT
+                        // case SDLK_x:
+                }
+
+            default:
                 break;
-
-            case SDLK_d:
-                cout << "Right" << endl;
-                if (dir != 4)
-                {
-                    dir = 3;
-                }
-
-                // snakeSprite = SpriteManager::LoadSprite("SpriteSnake/snakeHeadRight.png", renderer);
-                break;
-            case SDLK_q:
-                cout << "Left" << endl;
-                if (dir != 3)
-                {
-                    dir = 4;
-                }
-                // snakeSprite = SpriteManager::LoadSprite("SpriteSnake/snakeHeadLeft.png", renderer);
             }
 
-        default:
-            break;
+            // if(this->Apple->x == this->snake->x && this->Apple->y == this->snake->y)
+            // {
+            //     Snake::Eat();
+            // }
         }
 
-        // default:
-        //     break;
+        if (dir == 1)
+        {
+            this->s->MoveUp();
+        }
+        if (dir == 2)
+        {
+            this->s->MoveDown();
+        }
+        if (dir == 3)
+        {
+            this->s->MoveRight();
+        }
+        if (dir == 4)
+        {
+            this->s->MoveLeft();
+        }
+        if (s->collisionWithBorder())
+        {
+            isRunning = false;
+            cout << "Collide border" << endl;
+        }
+        if (s->collisionWithHimself())
+        {
+            isRunning = false;
+            cout << "Collide himself" << endl;
+        }
+
+
+
+
+        // Drawing part
+        this -> s -> ShowSnake();
+        SDL_RenderPresent(renderer);
+
+        // Frame Ratexxdsx
+        frame_time = SDL_GetTicks() - frame_time_start;
+        if (frame_time < frame_delay)
+        {
+            SDL_Delay((frame_delay - frame_time));
+        }
+
+    // if (this->fruit->x == this->s->head->x && this->fruit->y == this->s->head->y)
+    // {
+    //     this->s->Eat(this->fruit);
+    //     cout << "\nEaten" << endl;
+    // }
+    // cout << "Coord pomme : " << box.y << "      " << box.x << endl;
+
+    // cout << "Coord snake : " << this->s->x << "      " << this->s->y << "\n" << endl;
     }
-    if (dir == 1)
-    {
-        dstR.y = dstR.y - 2;
-    }
-    if (dir == 2)
-    {
-        dstR.y = dstR.y + 2;
-    }
-    if (dir == 3)
-    {
-        dstR.x = dstR.x + 2;
-    }
-    if (dir == 4)
-    {
-        dstR.x = dstR.x - 2;
-    }
+
 }
 
-void Window::update()
+void Game::gameInit()
 {
+    this -> mainWindow = new Window();
+    this -> mainWindow -> WindowInit("Snake!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    // counter++;
-    dstR.h = 48;
-    dstR.w = 48;
+    this -> renderer = mainWindow->GetRenderer();
+    this -> playground = new PlayGround(renderer);
 
-    dstA.h = 48;
-    dstA.w = 48;
-
-    // cout << counter << endl;
+    this -> s = new Snake();
+    // this -> fruit = new Fruit();
 }
 
-void Window::render()
-{
-    SDL_RenderClear(renderer);
-    // Where we add stuff to render
-    SDL_RenderCopy(renderer, snakeSprite, NULL, &dstR);
-    // SDL_RenderDrawRect(renderer, &rect);
-    SDL_RenderCopy(renderer, appleSprite, NULL, &dstA);
-
-    SDL_RenderPresent(renderer);
-}
-
-void Window::clean()
-{
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    // SDL_Quit();
-    std::cout << "Game cleaned!" << std::endl;
-    exit(0);
-}
-
-// g++ main.cpp -lSDL2 -o main && ./main
