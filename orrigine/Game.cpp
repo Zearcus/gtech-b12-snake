@@ -3,88 +3,64 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include "MainSDLWindow.hpp"
+#include "Window.hpp"
 #include "snake.hpp"
-#include "game.hpp"
+#include "Game.hpp"
 #include "SpriteLoader.hpp"
 
 // #include "MoveSprite.hpp"
 
 using namespace std;
 
-
 // Snake *snake = nullptr;
 // snake = new Snake();
 
-MainSDLWindow::MainSDLWindow()
+// Window::Window()
+// {
+//     this->window = NULL;
+//     this->renderer = NULL;
+// }
+
+Game::Game() 
 {
-    this->window = NULL;
-    this->renderer = NULL;
+    if(SDL_Init(SDL_INIT_VIDEO) < 0) { // SDL init error ?
+        printf("Error initialization SDL : %s\n",SDL_GetError()); // Print error
+        exit(1); // Quit to avoid more problems
+  }
 }
 
-Game::Game() {}
-
-MainSDLWindow::~MainSDLWindow()
+Game::~Game()
 {
+    delete this -> s;
     SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    delete this -> mainWindow;
     SDL_Quit();
 }
 
-int MainSDLWindow::Init(const char *nameWindow, int posX, int posY, int rendererW, int rendererH, bool fullscreen)
+
+void Game::gameLoop()
 {
-    window = SDL_CreateWindow(nameWindow, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, rendererW, rendererH, SDL_WINDOW_SHOWN);
-    if (window == NULL)
-    {
-        cout << "Error: SDL_CreateWindow() failed : "<< SDL_GetError() << endl;
-        isRunning = false;
-        return EXIT_FAILURE; // Quit program
-    }
-    else
-    {
-        isRunning = true;
-    }
-
-    int flags = 0;
-    if (fullscreen)
-    {
-        flags = SDL_WINDOW_FULLSCREEN;
-    }
-
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    SDL_SetRenderDrawColor(renderer, 66, 245, 87, SDL_ALPHA_OPAQUE);
-
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
-        cout << "Error: Init() function failed : "<< SDL_GetError() << endl;
-        isRunning = false;
-        return EXIT_FAILURE; // Quit program
-    }
-    else
-    {
-        isRunning = true;
-    }
-
-
-    snakeSprite = SpriteLoader::LoadSprite("SpriteSnake/snakeHeadDown.png", renderer);
-    
-    return EXIT_SUCCESS;
-
-    
-}
-
-void MainSDLWindow::handleEvents()
-{
+    Uint32 frame_time_start, frame_time, frame_delay = 80;
     SDL_Event event;
+    bool isRunning = true;
+    while(isRunning)
+    {
+        cout << "Game loop" << endl;
+        cout << count << endl;
+    
+
     while (SDL_PollEvent(&event) != 0)
     {
 
-        // if(collisionWithBorder == true)
-        // {
-        //     isRunning = false;
-        // }
-            
+        if (s->collisionWithBorder())
+        {
+            isRunning = false;
+        }
 
+        if (s->collisionWithHimself())
+        {
+            isRunning = false;
+        }
 
         switch (event.type)
         {
@@ -122,11 +98,9 @@ void MainSDLWindow::handleEvents()
                 {
                     dir = 4;
                 }
-            // case SDLK_x:
-
-                
+                // case SDLK_x:
             }
-            
+
         default:
             break;
         }
@@ -137,85 +111,50 @@ void MainSDLWindow::handleEvents()
         // }
     }
 
-
-    
+    frame_time = SDL_GetTicks() - frame_time_start;
+    if (frame_time < frame_delay)
+    {
+        SDL_Delay((frame_delay - frame_time));
+    }
 
     if (dir == 1)
     {
-        dstS.y -=  BLOC_SIZE;
-        // dstS.y = dstS.y - MOVE_SPEED;
+        this->s->MoveUp();
     }
     if (dir == 2)
     {
-        dstS.y +=  BLOC_SIZE;
-        // dstS.y = dstS.y + MOVE_SPEED;
+        this->s->MoveDown();
     }
     if (dir == 3)
     {
-        dstS.x +=  BLOC_SIZE;
-        // dstS.x = dstS.x + MOVE_SPEED;
+        this->s->MoveRight();
     }
     if (dir == 4)
     {
-        dstS.x -=  BLOC_SIZE;
-        // dstS.x = dstS.x - MOVE_SPEED;
-
+        this->s->MoveLeft();
     }
-        if(dstS.y == box.y && dstS.x == box.x)
-        {
-            Snake s;
-            cout << "Eaten" << endl;
-            s.Eat();
-        }
-        cout << "\nCoord pomme : " << box.y << "      " << box.x << endl;
+    // if (dstS.y == box.y && dstS.x == box.x)
+    // {
 
-        cout << "Coord snake : " << dstS.x << "      " << dstS.y << endl;
-}
+    //     cout << "\nEaten" << endl;
+    //     this->s->Eat();
+    // }
+    // cout << "Coord pomme : " << box.y << "      " << box.x << endl;
 
-
-
-void MainSDLWindow::update()
-{
-    dstS.h = BLOC_SIZE;
-    dstS.w = BLOC_SIZE; 
-
-    box.w = BLOC_SIZE; 
-    box.h = BLOC_SIZE; 
-    box.x = WINDOW_WIDTH/2;
-    box.y = WINDOW_HEIGHT/2; 
-    
-
-
-
-
+    // cout << "Coord snake : " << this->s->x << "      " << this->s->y << "\n" << endl;
+    }
 
 }
 
-void MainSDLWindow::render()
+void Game::gameInit()
 {
-    // Color of background
-    SDL_SetRenderDrawColor(renderer, 0 , 0 , 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderClear(renderer);
+    this -> mainWindow = new Window();
+    this -> mainWindow -> WindowInit("Snake!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, false);
 
-    // Where we add stuff to render
-    // SDL_RenderCopy(renderer, snakeSprite, NULL, &dstS);
-    SDL_RenderDrawRect(renderer, &dstS);
-    SDL_SetRenderDrawColor(renderer, 255 , 255 , 255, SDL_ALPHA_OPAQUE);
-    SDL_RenderFillRect(renderer, &dstS);
+    this -> renderer = mainWindow->GetRenderer();
+    this -> playground = new PlayGround(renderer);
 
-    SDL_RenderDrawRect(renderer, &box);
-    SDL_SetRenderDrawColor(renderer, 255 , 160 , 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderFillRect(renderer, &box);
-
-    SDL_RenderPresent(renderer);
-}
-
-void MainSDLWindow::clean()
-{
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    // SDL_Quit();
-    std::cout << "Game cleaned!" << std::endl;
-    exit(0);
+    this -> s = new Snake();
+    // this -> fruit = new Fruit();
 }
 

@@ -1,13 +1,12 @@
-#ifndef SpriteLoader_HPP
-#define SpriteLoader_HPP
+#pragma once
 
-#include "MainSDLWindow.hpp"
+#include "Window.hpp"
 
-class SpriteLoader{
+class SpriteLoader
+{
 
-    public:
-        SpriteLoader();
-        ~SpriteLoader();
-        static SDL_Texture* LoadSprite(const char* fileName, SDL_Renderer* ren);
+public:
+    SpriteLoader();
+    ~SpriteLoader();
+    static SDL_Texture *LoadSprite(const char *fileName, SDL_Renderer *ren);
 };
-#endif

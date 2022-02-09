@@ -1,8 +1,8 @@
 CC=g++
 # Adapt the variables below to your needs:
 EXE=main
-CPP=main.cpp Game.cpp SpriteLoader.cpp snake.cpp 
-HPP=game.hpp MainSDLWindow.hpp snake.hpp SpriteLoader.hpp
+CPP=main.cpp Window.cpp Game.cpp SpriteLoader.cpp snake.cpp 
+HPP=Game.hpp Window.hpp snake.hpp SpriteLoader.hpp
 
 # The default is build the executable file:
 default: $(EXE)

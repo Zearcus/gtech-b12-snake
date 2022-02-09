@@ -6,8 +6,8 @@ class exercice1hpp{
     texture initialisation
     ---
     +public :
-    MainSDLWindow
-    (destructor)MainSDLWindow
+    Window
+    (destructor)Window
     {static} int Init
     ---
     __private__
@@ -16,11 +16,11 @@ class exercice1hpp{
 }
 exercice1cpp *--  exercice1hpp : define
 class exercice1cpp{
-    +MainSDLWindow
+    +Window
     this window = NULL
     this renderer = NULL
     ---
-    (desctructor)MainSDLWindow
+    (desctructor)Window
     -SDL_DestroyRenderer
     -SDL_DestroyWindow
     -SDL_Quit
@@ -32,7 +32,7 @@ class exercice1cpp{
     
     ---
     {static} int main(void)
-    MainSDLWindow main_window
+    Window main_window
     main_window.init()
     return 0
 

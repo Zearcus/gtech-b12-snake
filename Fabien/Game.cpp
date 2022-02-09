@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include "MainSDLWindow.hpp"
+#include "Window.hpp"
 #include "game.hpp"
 #include "SpriteManager.hpp"
 #include "fruit.hpp"
@@ -70,7 +70,7 @@ using namespace std;
 
 // };
 
-MainSDLWindow::MainSDLWindow()
+Window::Window()
 {
     this->window = NULL;
     this->renderer = NULL;
@@ -78,14 +78,14 @@ MainSDLWindow::MainSDLWindow()
 
 Game::Game() {}
 
-MainSDLWindow::~MainSDLWindow()
+Window::~Window()
 {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
 
-int MainSDLWindow::Init(const char *nameWindow, int posX, int posY, int rendererW, int rendererH, bool fullscreen)
+int Window::Init(const char *nameWindow, int posX, int posY, int rendererW, int rendererH, bool fullscreen)
 {
     window = SDL_CreateWindow(nameWindow, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, rendererW, rendererH, SDL_WINDOW_SHOWN);
     if (window == NULL)
@@ -131,7 +131,7 @@ int MainSDLWindow::Init(const char *nameWindow, int posX, int posY, int renderer
     // SDL_RenderClear(renderer);
 }
 
-void MainSDLWindow::handleEvents()
+void Window::handleEvents()
 {
     SDL_Event event;
     while (SDL_PollEvent(&event) != 0)
@@ -194,7 +194,7 @@ void MainSDLWindow::handleEvents()
     }
     if (dir == 1)
     {
-        dstR.y = dstR.y -2;
+        dstR.y = dstR.y - 2;
     }
     if (dir == 2)
     {
@@ -210,7 +210,7 @@ void MainSDLWindow::handleEvents()
     }
 }
 
-void MainSDLWindow::update()
+void Window::update()
 {
 
     // counter++;
@@ -223,7 +223,7 @@ void MainSDLWindow::update()
     // cout << counter << endl;
 }
 
-void MainSDLWindow::render()
+void Window::render()
 {
     SDL_RenderClear(renderer);
     // Where we add stuff to render
@@ -234,7 +234,7 @@ void MainSDLWindow::render()
     SDL_RenderPresent(renderer);
 }
 
-void MainSDLWindow::clean()
+void Window::clean()
 {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

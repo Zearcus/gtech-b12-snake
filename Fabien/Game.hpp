@@ -1,25 +1,25 @@
 #ifndef game_HPP
 #define game_HPP
 
-#include "MainSDLWindow.hpp"
-#include "snake.hpp"
-
-class Game : public MainSDLWindow
-{ 
+class Game {
     public:
         Game();
         ~Game();
+
+        void GameLoop
 
         void handleEvents();
         void update();
         void render();
         // void clean();
 
-        // bool running() {return isRunning; };
-        int dir;
+        bool running() {return isRunning; };
 
     private:
-
+        bool isRunning;
+        SDL_Renderer *renderer; 
+        SDL_Rect srcR, dstR;
+        const char *lastKeyPressed = "";
         const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 };
 #endif

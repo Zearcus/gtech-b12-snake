@@ -9,57 +9,54 @@
 class Game {
 	+Game()
 	+~Game()
-	-keystates : const Uint8*
-	+dir : int
-	+handleEvents() : void
-	+render() : void
-	+update() : void
+	-playground : PlayGround*
+	-renderer : SDL_Renderer*
+	-s : Snake*
+	-mainWindow : Window*
+	-isRunning : bool
+	+running() : bool
+	-dir : int
+	+gameInit() : void
+	+gameLoop() : void
 }
 
 
-class MainSDLWindow {
-	+MainSDLWindow()
-	+~MainSDLWindow()
-	#dstS : SDL_Rect
-	#srcS : SDL_Rect
-	#renderer : SDL_Renderer*
-	#snakeSprite : SDL_Texture*
-	#window : SDL_Window*
-	-frame_time_interval : Uint32
-	-frame_time_start : Uint32
-	#isRunning : bool
-	+running() : bool
-	+Init(const char* nameWindow, int posX, int posY, int rendererW, int rendererH, bool fullscreen) : int
-	#dir : int
-	+clean() : void
-	+handleEvents() : void
-	+render() : void
-	+update() : void
+class PlayGround {
+	+PlayGround(SDL_Renderer*)
+	-renderer : SDL_Renderer*
 }
 
 
 class Segment {
-	+Segment()
+	+Segment(int xx, int yy)
 	+~Segment()
-	+head : Segment*
+	+dstS : SDL_Rect
+	+srcS : SDL_Rect
 	+next : Segment*
-	+tail : Segment*
-	+HasNext() : int
-	+addSegment(int xx, int yy) : int
-	-x : int
-	-y : int
+	+x : int
+	+y : int
 	+SetPosition() : void
+	+addSegment(int xx, int yy) : void
 }
 
 
 class Snake {
 	+Snake()
 	+~Snake()
-	-head : Snake*
-	-tail : Snake*
-	+collision() : int
+	+head : Segment*
+	-tail : Segment*
+	+collisionWithBorder() : bool
+	+collisionWithHimself() : bool
+	+dir : int
 	+length() : int
+	+x : int
+	+y : int
+	+Draw(SDL_Renderer* renderer, int r, int g, int b, int a) : void
 	+Eat() : void
+	+MoveDown() : void
+	+MoveLeft() : void
+	+MoveRight() : void
+	+MoveUp() : void
 }
 
 
@@ -70,23 +67,42 @@ class SpriteLoader {
 }
 
 
+class Window {
+	+Window()
+	+~Window()
+	+GetRenderer() : SDL_Renderer*
+	#renderer : SDL_Renderer*
+	#window : SDL_Window*
+	-frame_time_interval : Uint32
+	-frame_time_start : Uint32
+	+WindowInit(const char* nameWindow, int posX, int posY, int rendererW, int rendererH, bool fullscreen) : int
+	+ClearRenderer(SDL_Renderer* renderer) : void
+}
+
+
 
 
 
 /' Inheritance relationships '/
-
-.MainSDLWindow <|-- .Game
-
 
 
 
 
 /' Aggregation relationships '/
 
-.Segment "3" o-- .Segment
+.Game o-- .PlayGround
 
 
-.Snake "2" o-- .Snake
+.Game o-- .Snake
+
+
+.Game o-- .Window
+
+
+.Segment o-- .Segment
+
+
+.Snake "2" o-- .Segment
 
 
 
