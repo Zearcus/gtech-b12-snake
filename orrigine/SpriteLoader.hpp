@@ -1,12 +1,12 @@
-#pragma once
+// #pragma once
 
-#include "Window.hpp"
+// #include "Window.hpp"
 
-class SpriteLoader
-{
+// class SpriteLoader
+// {
 
-public:
-    SpriteLoader();
-    ~SpriteLoader();
-    static SDL_Texture *LoadSprite(const char *fileName, SDL_Renderer *ren);
-};
+// public:
+//     SpriteLoader();
+//     ~SpriteLoader();
+//     static SDL_Texture *LoadSprite(const char *fileName, SDL_Renderer *ren);
+// };

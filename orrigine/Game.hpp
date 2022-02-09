@@ -18,6 +18,7 @@ private:
     int count;
     bool isRunning;
     int dir;
+    SDL_Event event;
     Window* mainWindow;
     SDL_Renderer* renderer;
     PlayGround *playground;

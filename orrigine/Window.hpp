@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include "snake.hpp"
 
+
 // #define MOVE_SPEED 4
 #define WINDOW_WIDTH  900
 #define WINDOW_HEIGHT  900
@@ -14,7 +15,11 @@ class Window {
     public:
         Window();
         ~Window();
-        int WindowInit(const char* nameWindow, int posX, int posY, int rendererW, int rendererH, bool fullscreen);
+        int WindowInit(const char* nameWindow, int posX, int posY, int rendererW, int rendererH);
+        //  void DrawRectOnRenderer(SDL_Rect rect, SDL_Renderer * renderer, int r, int g, int b, int a);   
+
+        //  void ShowSpriteOnRenderer(SDL_Texture* sprite, SDL_Renderer * renderer, SDL_Rect position, int angle = 0);
+
         // SDL_Renderer *GetRenderer(void){};
 
         // void handleEvents();
